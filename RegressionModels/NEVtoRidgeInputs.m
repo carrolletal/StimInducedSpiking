@@ -1,5 +1,3 @@
-%This code produces from NEV.mat response variables (neural spikes) and predictors (stimulus orientation, opto, + pupil size).  
-
 load('/Users/brianacarroll/Desktop/091824/091824template_NEV.mat')
 %
 %%
@@ -77,13 +75,18 @@ end
 stimlist=unique(stimvar);
 stimlist=stimlist(find(stimlist));
 
-LEDmatrix=zeros(1, int32(max(timestamps));
-orientMatrix=zeros(unique(stimvar)-1, int32(max(timestamps));
+%LEDmatrix=zeros(1, int32(max(timestamps)));
+orientMatrix=zeros(length(unique(stimvar))-1, int32(max(timestamps)));
 
 for stim=1:length(stimvar)
     if stimvar(1)>0
-        orientMatrix(find(stimlist==stimvar(stim)),int32(bnctimes(stim)))=1;
+        if stimvar(stim)==0
+            break
+        else
+            orientMatrix(find(stimlist==stimvar(stim)),int32(bnctimes(stim)))=1;
+        end
     end
 end
 
 %%%
+xMatrix=[orientMatrix];
