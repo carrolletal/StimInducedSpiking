@@ -29,8 +29,6 @@ for filename in os.listdir(tiff_dir):
             # Save the current frame as a PNG file
             im.save(os.path.join(png_dir, png_filename))
 
-##dir_name = '/Users/mouseuser/Desktop/042624-total/'
-
 #fnames = sorted(os.listdir(dir_name))
                                                 #PNG TO AVI VIDEO
 #inpts = ffmpeg.input(dir_name, pattern_type='glob', framerate=10)
