@@ -1,10 +1,10 @@
 addpath /Users/brianacarroll/Desktop/GLMs
 delay=12000; %in original 30 kHz trace, so delay=12000 yields 4s of betas
-fold=10;
+fold=5;
 
 NEVtoRidgeInputs
 %or, since that data file is huge, I've provided the output as a .mat:
-load('NEVtoRidgeInputsResult.mat')
+%load('NEVtoRidgeInputsResult.mat')
 
 %for 091824, cut off end which is opto only
 xMatrix=xMatrix(1:end-1, 1:10485000);
@@ -49,15 +49,15 @@ save([fname, '_TestSets.mat'], 'reals', 'ybars', 'tests', 'rsqs');
 
 modelrsqs(1,:,:)=rsqs;
 
-plotBetas=0;
-plotTogether=0;
+plotBetas=1;
+plotTogether=1;
 plotSeparate=0;
 
 if plotBetas
     if plotTogether
         figure;hold
     end
-    for i=1:cells
+    for i=1:2%cells
         cellMatrix=squeeze(betas(:,2:end, i));
        
         cellMatrixMean=mean(cellMatrix);
@@ -65,11 +65,11 @@ if plotBetas
         if plotSeparate
             figure;hold
         end
-        for j=1:size(indices,2)-1
+        for j=1%:size(indices,2)-1
             predictorBetas=cellMatrixMean(indices(j):indices(j+1)-1)
             predictorError=sem(indices(j):indices(j+1)-1)
             plot(predictorBetas, 'LineWidth',2)
-            xline(30)
+            %xline(30)
             patch([[1:size(predictorBetas,2)] flip([1:size(predictorBetas,2)])], [predictorBetas-predictorError flip(predictorBetas+predictorError)], 'black', 'FaceAlpha',0.25, 'EdgeColor','none')          
         end
         if plotSeparate
@@ -126,6 +126,9 @@ for predictor=1:length(indices)-1
 
 %%%%
 save('rsqs.mat', 'modelrsqs')
+
+
+
 
 
 
