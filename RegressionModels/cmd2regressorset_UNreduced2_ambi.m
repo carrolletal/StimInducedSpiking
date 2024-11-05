@@ -7,12 +7,12 @@ shift=int32(delay/reskern)/Nlimiter; %500
 
 %[Q1,R1]=quorem(sym(t),sym(reskern));
 
-eX=zeros(size(filteredstim,1),size(filteredstim,2)*shift/Nlimiter);
+eX=zeros(size(filteredstim,1),size(filteredstim,2)*shift);
 
 column=1;
 for i=1: size(filteredstim, 2) %for each predictor e.g. 90-degree-on
     
-    for n=1:Nlimiter:shift
+    for n=1:shift
         indShift=zeros(size(filteredstim, 1),1);
         indShift(n:end)=filteredstim(1:end+1-n, i);
         eX(:, column)=indShift;
