@@ -19,17 +19,18 @@ for i=1: size(filteredstim, 2) %for each predictor e.g. 90-degree-on
         column=column+1;
     end    
 end
-%normalize so each column sums to 1
-eX=eX./sum(eX);
+
 
 
 
 %scale each column such that its sum is 1
-[xsize, ysize]=size(eX);
-for col=1:ysize
-    scaler=std(eX(:, col));
-    eX(:, col)=eX(:, col)/scaler;
-end
+
+eX=eX./sum(eX);
+%[xsize, ysize]=size(eX);
+%for col=1:ysize
+%    scaler=std(eX(:, col));
+%    eX(:, col)=eX(:, col)/scaler;
+%end
 
 dep=filteredcells;
 
