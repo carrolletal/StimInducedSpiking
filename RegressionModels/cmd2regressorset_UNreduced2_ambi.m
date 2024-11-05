@@ -17,10 +17,10 @@ for i=1: size(filteredstim, 2) %for each predictor e.g. 90-degree-on
         indShift(n:end)=filteredstim(1:end+1-n, i);
         eX(:, column)=indShift;
         column=column+1;
-    end
-
-    
+    end    
 end
+%normalize so each column sums to 1
+eX=eX./sum(eX);
 
 
 
