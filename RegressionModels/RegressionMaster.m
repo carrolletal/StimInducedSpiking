@@ -5,6 +5,8 @@ delay=12000; %in original 30 kHz trace, so delay=12000 yields 4s of betas
 fold = 5;
 
 NEVtoRidgeInputs
+%or, since that data file is huge, I've provided the output as a .mat:
+load('NEVtoRidgeInputsResult.mat')
 %for 091824, cut off end which is opto only
 xMatrix=xMatrix(1:end-1, 1:10485000);
 yMatrix=yMatrix(:, 1:10485000);
