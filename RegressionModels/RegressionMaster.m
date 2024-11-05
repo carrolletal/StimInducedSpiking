@@ -1,12 +1,11 @@
-%it processes the inputs by smoothing then and producing lagged versions of the predictors, then trains and tests regresion models from input subsets.  
-%this file will take a long time to run.  
-
+addpath /Users/brianacarroll/Desktop/GLMs
 delay=12000; %in original 30 kHz trace, so delay=12000 yields 4s of betas
-fold = 5;
+fold=10;
 
 NEVtoRidgeInputs
 %or, since that data file is huge, I've provided the output as a .mat:
 load('NEVtoRidgeInputsResult.mat')
+
 %for 091824, cut off end which is opto only
 xMatrix=xMatrix(1:end-1, 1:10485000);
 yMatrix=yMatrix(:, 1:10485000);
@@ -31,7 +30,7 @@ modelrsqs=zeros(2+2*preds, fold, cells);
 %move into for-cell to generate per cell
 cmd8_shuffle;  %sum of ord==sum of shuff'd, so this code works.
 fullX=eX;
-indices=1:shift:size(eX,2);indices=[indices, size(eX,2)+1];
+indices=1:shift:size(eX,2); indices=[indices, size(eX,2)+1];
 recerror=[];
 
 
@@ -39,7 +38,6 @@ recerror=[];
 
 fname='shuffleandsubOutput'; mkdir(fname); cd(fname)
 
-fold=10;
 foldsize=length(dep)/fold;
 
 eX=fullX; 
@@ -96,6 +94,8 @@ modelrsqs(2,:,:)=rsqs;
 
 %%%%%%sole predictor type
 for predictor=1:length(indices)-1
+    rsqIndex=3;
+
     start=indices(predictor);
     stop=indices(predictor+1)-1;
     
@@ -106,7 +106,7 @@ for predictor=1:length(indices)-1
     save([fname, '_Betas.mat'], 'betas', 'lambdas', 'convergenceFailures', 'rsqs');
     save([fname, '_TestSets.mat'], 'reals', 'ybars', 'tests', 'rsqs');
     
-    modelrsqs(2+predictor,:,:)=rsqs;
+    modelrsqs(rsqIndex,:,:)=rsqs;
 
    
     
@@ -118,11 +118,15 @@ for predictor=1:length(indices)-1
     save([fname, '_Betas.mat'], 'betas', 'lambdas', 'convergenceFailures', 'rsqs');
     save([fname, '_TestSets.mat'], 'reals', 'ybars', 'tests', 'rsqs');
 
-    modelrsqs=[modelrsqs,rsqs];
+    modelrsqs(rsqIndex+1,:,:)=rsqs;
+    
+    rsqIndex=rsqIndex+2;
 
     end
 
 %%%%
 save('rsqs.mat', 'modelrsqs')
+
+
 
 
