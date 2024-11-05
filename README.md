@@ -1,5 +1,5 @@
 # StimInducedSpiking
-a software suite for visualizing and analyzing visual cortical activity as modulated by sensory stimuli, ontogenetic perturbations, and behavioral states
+a software suite for visualizing and analyzing visual cortical activity as modulated by sensory stimuli, optogenetic perturbations, and behavioral states
 
 
 This repository hosts a pipeline for the handling of extracellular recordings.  The current version is tailored for recordings using an A32 Neuronexus probe, a Blackrock Neurotech interface, and the Central software. 
