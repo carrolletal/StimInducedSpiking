@@ -2,8 +2,8 @@
 %makes a regressor set eX that is scaled in time
 
 %lever/sensory stim
-shift=int32(delay/reskern); %500
 Nlimiter=10;
+shift=int32(delay/reskern)/Nlimiter; %500
 
 %[Q1,R1]=quorem(sym(t),sym(reskern));
 
